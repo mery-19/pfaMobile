@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pfaMobile/constants.dart';
+import 'package:pfaMobile/screens/Authentication/Signin.dart';
 import 'package:pfaMobile/screens/HomeScreen/home.dart';
 import 'package:pfaMobile/services/PromotionService.dart';
 
@@ -150,7 +151,14 @@ Drawer buildDrawer(BuildContext context) {
                 Icons.login,
                 color: Colors.grey,
               ),
-              onTap: () => {},
+              onTap: () => {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>Signin(),
+                        ),
+                      )              
+              },
             ),
           ),
         ),

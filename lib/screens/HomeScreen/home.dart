@@ -82,6 +82,14 @@ class _HomePageState extends State<HomePage> {
         return new ListTile(
           title: Text(filterProducts[index]['name']),
           onTap: () {
+             Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductDetail(Product.fromJson(filterProducts[index])),
+                          settings: RouteSettings(
+                              arguments: ScreenArguments(0)),
+                        ),
+                      );
           },
         );
       },
