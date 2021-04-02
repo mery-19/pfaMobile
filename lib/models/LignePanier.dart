@@ -4,7 +4,7 @@ class LignePanier {
   final String image;
   final int quantite;
   final int quantite_disponible;
-  final double prix;
+  double prix;
   
   
   LignePanier({this.id,
@@ -26,5 +26,12 @@ class LignePanier {
     );
   }
 
-
+  static void afficher(LignePanier ligne){
+    print("id: "+ligne.id.toString());
+    print("name: "+ligne.name);
+    print("image: "+ligne.image);
+    print("quantite: "+ligne.quantite.toString());
+    print("quantite_disponible: "+ligne.quantite_disponible.toString());
+    print("prix: "+ligne.prix.toString());
+  }
 }

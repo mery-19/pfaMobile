@@ -24,23 +24,56 @@ class PanierService {
 
   static Future<LignePanier> updateQuantite(int id_produit, int qty) async {
     try {
-      final response = await http.put(
-        panierApi,
-        body: {
-          'id_user': connectedUser.id,
-          'id_produit': id_produit,
-          'qty': qty
-        },
+      final response = await http.get(
+        panierApi+"?id_user="+connectedUser.id+"&id_produit="+id_produit.toString()+"&quantite="+qty.toString(),
+        
         headers: {"Accept": "application/json"},
       );
-
       dynamic value = json.decode(response.body);
 
       return LignePanier.fromJson(value);
     } catch (e) {
-      print("------*********---------********");
+      print("*************** ERROR UPDATEQTY START ****************");
       print(e.toString());
-      print("------*********---------********");
+      print("*************** ERROR UPDATEQTY END ****************");
     }
+    return null;
+  }
+
+  static Future<bool> deleteProduct(int id_produit) async {
+    try {
+      final response = await http.get(
+        panierApi+"?id_user="+connectedUser.id+"&id_produit="+id_produit.toString(),
+        headers: {"Accept": "application/json"},
+      );
+      dynamic value = response.body;
+      print("val: "+value);
+      return true;
+
+    } catch (e) {
+      print("*************** ERROR UPDATEQTY START ****************");
+      print(e.toString());
+      print("*************** ERROR UPDATEQTY END ****************");
+    }
+    return false;
+  }
+
+  static Future<bool> addProductToPanier(int id_produit, int qty) async {
+    try {
+      final response = await http.get(
+        panierApi+"?name="+connectedUser.username+"&id_produit="+id_produit.toString()+"&quantite="+qty.toString(),
+        
+        headers: {"Accept": "application/json"},
+      );
+      dynamic value = response.body;
+      print("val: "+value);
+      return true;
+
+    } catch (e) {
+      print("*************** ERROR PRODUCT ADD START ****************");
+      print(e.toString());
+      print("*************** ERROR  PRODUCT ADD END ****************");
+    }
+    return false;
   }
 }

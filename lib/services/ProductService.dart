@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:pfaMobile/models/Product.dart';
 import 'package:http/http.dart' as http;
 import 'package:pfaMobile/URLs.dart';
+import 'package:pfaMobile/session.dart';
 
 class ProductService {
   
@@ -96,6 +97,25 @@ class ProductService {
       print(e.toString());
       throw Exception(e.toString());
     }
+  }
+
+   static Future<int> getProductQty(int id_produit) async {
+    try {
+      final response = await http.get(
+        produitsApi+"?name="+connectedUser.username+"&id_produit="+id_produit.toString(),
+        
+        headers: {"Accept": "application/json"},
+      );
+      dynamic value = response.body;
+      print("val: "+value);
+      return int.parse(value);
+
+    } catch (e) {
+      print("*************** ERROR PRODUCT ADD START ****************");
+      print(e.toString());
+      print("*************** ERROR  PRODUCT ADD END ****************");
+    }
+    return 0;
   }
 
 }

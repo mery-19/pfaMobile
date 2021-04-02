@@ -19,6 +19,9 @@ class AuthService{
     },
     );
     dynamic value = json.decode(response.body);
+    print("************* USER START ******************");
+    print(value);
+    print("************* USER END ******************");
     
     connectedUser =(value != null)? User.fromJson(value):null;
 

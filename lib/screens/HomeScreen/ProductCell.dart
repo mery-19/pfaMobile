@@ -4,7 +4,6 @@ import 'package:pfaMobile/models/Product.dart';
 import 'package:flutter/material.dart';
 import 'package:pfaMobile/models/Promotion.dart';
 import 'package:pfaMobile/screens/HomeScreen/home.dart';
-import 'package:pfaMobile/services/PromotionService.dart';
 
 class ProductCell extends StatefulWidget {
   final Product product;
@@ -35,7 +34,6 @@ class _ProductCellState extends State<ProductCell> {
        promotion = HomePage.promotions
           .where((element) => element.id == product.id_promotion)
           .first;
-      print(promotion.libele);
       if (DateTime.parse(promotion.date_expire).isAfter(DateTime.now())) {
         promotionAvailable = true;
         setState(() {

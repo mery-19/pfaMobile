@@ -6,29 +6,27 @@ import 'package:pfaMobile/screens/HomeScreen/home.dart';
 import 'package:pfaMobile/services/AuthService.dart';
 import 'package:pfaMobile/theme.dart';
 
-
 class SignForm extends StatefulWidget {
   @override
   _SignFormState createState() => _SignFormState();
 }
+
 class _SignFormState extends State<SignForm> {
   final _keyForm = GlobalKey<FormState>();
   TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
-  
 
   @override
   Widget build(BuildContext context) {
-
-    void signIn(){
-        AuthService.login(_email.text, _password.text).then((value){
-          if(value == null){
-            toastMessage("Erreur de connexion.", Colors.red);
-          }else{
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                HomePage.routeName, (Route<dynamic> route) => false);
-          }
-        });
+    void signIn() {
+      AuthService.login(_email.text, _password.text).then((value) {
+        if (value == null) {
+          toastMessage("Erreur de connexion.", Colors.red);
+        } else {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              HomePage.routeName, (Route<dynamic> route) => false);
+        }
+      });
     }
 
     return Form(
@@ -45,9 +43,8 @@ class _SignFormState extends State<SignForm> {
               text: "Connect",
               press: () {
                 if (_keyForm.currentState.validate()) {
-
                   signIn();
-                } 
+                }
               }),
           SizedBox(height: height_box),
           NoAccount()
@@ -73,21 +70,18 @@ class _SignFormState extends State<SignForm> {
           print("--------------RegExp-------------------");
           print(matches);
           print("--------------RegExp-------------------");
-          if (! matches) {
+          if (!matches) {
             return 'Le mot de passe est invalide. ';
           }
           return null;
         },
         decoration: InputDecoration(
-          labelStyle: TextStyle(
-                      color:Colors.black
-                    ),
+            labelStyle: TextStyle(color: Colors.black),
             labelText: "Mot de passe",
             hintText: "Entrer le mot de passe.",
             suffixIcon: Padding(
               padding: icon_padding,
-              child: Icon(Icons.lock,
-              color: main_bg_color),
+              child: Icon(Icons.lock, color: main_bg_color),
             ),
             floatingLabelBehavior: FloatingLabelBehavior.always,
             contentPadding: field_padding,
@@ -108,23 +102,16 @@ class _SignFormState extends State<SignForm> {
         },
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-          labelStyle: TextStyle(
-                      color:Colors.black
-                    ),
+            labelStyle: TextStyle(color: Colors.black),
             labelText: "Email",
             hintText: "Email",
             suffixIcon: Padding(
               padding: icon_padding,
-              child: Icon(Icons.email,
-              color: main_bg_color),
-              
+              child: Icon(Icons.email, color: main_bg_color),
             ),
             floatingLabelBehavior: FloatingLabelBehavior.always,
             contentPadding: field_padding,
             border: inputBorderStyle(),
-            focusedBorder: outlineInputBorder()
-            
-            ));
+            focusedBorder: outlineInputBorder()));
   }
-
 }

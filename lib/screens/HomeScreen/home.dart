@@ -5,6 +5,7 @@ import 'package:pfaMobile/models/Product.dart';
 import 'package:pfaMobile/models/Promotion.dart';
 import 'package:pfaMobile/screens/HomeScreen/ProductCell.dart';
 import 'package:pfaMobile/screens/HomeScreen/sideBar.dart';
+import 'package:pfaMobile/screens/Panier.dart/Panier.dart';
 import 'package:pfaMobile/screens/Product/arguments.dart';
 import 'package:pfaMobile/screens/Product/productDetail.dart';
 import 'package:pfaMobile/services/ProductService.dart';
@@ -116,9 +117,6 @@ class _HomePageState extends State<HomePage> {
     getNames();
     PromotionService.fetchAll().then((value){
       HomePage.promotions = value;
-      print("----------------START------------------");
-      print(HomePage.promotions);
-      print("----------------END------------------");
     });
 
   }
@@ -201,7 +199,12 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
               ),
               onPressed: () {
-              
+                Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Panier(),
+                      ),
+                    );
               })
         ],
       ),
@@ -244,7 +247,8 @@ class _HomePageState extends State<HomePage> {
                               fontFamily: 'Inconsolata',
                             ),
                           );
-                        })),
+                        })
+                        ),
 
                 //grid view
                 Flexible(

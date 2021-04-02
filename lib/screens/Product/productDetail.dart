@@ -7,6 +7,9 @@ import 'package:pfaMobile/models/Promotion.dart';
 import 'package:pfaMobile/screens/HomeScreen/home.dart';
 import 'package:pfaMobile/screens/Product/BestSell.dart';
 import 'package:pfaMobile/screens/Product/arguments.dart';
+import 'package:pfaMobile/services/PanierService.dart';
+import 'package:pfaMobile/services/ProductService.dart';
+import 'package:pfaMobile/session.dart';
 import 'package:pfaMobile/theme.dart';
 
 class ProductDetail extends StatefulWidget {
@@ -49,6 +52,17 @@ class _ProductDetailState extends State<ProductDetail> {
         }
       }
     });
+    if (connectedUser != null) {
+      ProductService.getProductQty(product.id).then((value){
+        if(value != 0){
+  setState(() {
+          qty = value;
+        });
+        }
+      
+      });
+    }
+
     if (product.id_promotion != null) {
       promotion = HomePage.promotions
           .where((element) => element.id == product.id_promotion)
@@ -204,7 +218,8 @@ class _ProductDetailState extends State<ProductDetail> {
                             const Radius.circular(30.0),
                           ),
                         ),
-                        hintText: "Quantité"),
+                        hintText: "Qunatité"
+                        ),
 
                     // focusColor: Colors.white,
                     value: qty,
@@ -227,9 +242,26 @@ class _ProductDetailState extends State<ProductDetail> {
                     }).toList(),
 
                     onChanged: (int value) {
-                      setState(() {
+                      if (connectedUser != null) {
+                        setState(() {
+                          qty = value;
+                          PanierService.addProductToPanier(product.id, qty)
+                              .then((value) {
+                            if (value) {
+                              toastMessage(
+                                  "La quantité mise à jours avec succées.",
+                                  Colors.green);
+                            } else {
+                              toastMessage("Erreur de serveur.", Colors.red);
+                            }
+                          });
+                        });
+                      } else {
+                        toastMessage(
+                            "Accéder a votre compte pour ajouter le produit au votre panier",
+                            Colors.red);
                         qty = value;
-                      });
+                      }
                     },
                   ),
                 )
@@ -255,8 +287,10 @@ class _ProductDetailState extends State<ProductDetail> {
         icon: Icon(Icons.arrow_back, color: Color(0xFF545D68)),
         onPressed: () {
           if (args.page == 0) {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                HomePage.routeName, (Route<dynamic> route) => false);
+            // Navigator.of(context).pushNamedAndRemoveUntil(
+            //     HomePage.routeName, (Route<dynamic> route) => false);
+            Navigator.pop(context);
+
           } else {
             Navigator.pop(context);
           }
