@@ -1,6 +1,3 @@
-
-import 'package:pfaMobile/models/Product.dart';
-
 class ScreenArguments {
   int page;
 

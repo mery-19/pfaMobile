@@ -161,7 +161,8 @@ class _ProductDetailState extends State<ProductDetail> {
                 children: [
                   SizedBox(width: 50),
                   Text("Prix: ", style: normal_text()),
-                  Text(prix.toStringAsFixed(2) + "DH", style: prix_style()),
+                  Text(prix_vente.toStringAsFixed(2) + "DH",
+                      style: prix_style()),
                 ],
               )
             : Text(""),
@@ -170,8 +171,7 @@ class _ProductDetailState extends State<ProductDetail> {
           children: [
             SizedBox(width: 50),
             Text("Prix de transaction: ", style: normal_text()),
-            Text(prix_vente.toStringAsFixed(2) + "DH",
-                style: prix_transaction()),
+            Text(prix.toStringAsFixed(2) + "DH", style: prix_transaction()),
             SizedBox(width: 10),
           ],
         ),
@@ -199,20 +199,17 @@ class _ProductDetailState extends State<ProductDetail> {
                   width: MediaQuery.of(context).size.width / 2,
                   child: DropdownButtonFormField(
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(
-                          const Radius.circular(30.0),
-                          
+                        border: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(30.0),
+                          ),
                         ),
-                      
-                      ),
-                      hintText: "Quantité"
-                    ),
+                        hintText: "Quantité"),
 
                     // focusColor: Colors.white,
                     value: qty,
                     // iconEnabledColor: Colors.black,
-                     hint: Text(
+                    hint: Text(
                       (qty == null) ? "-- Quantité --" : qty.toString(),
                       style: TextStyle(
                           color: Colors.white,
@@ -228,7 +225,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         ),
                       );
                     }).toList(),
-                   
+
                     onChanged: (int value) {
                       setState(() {
                         qty = value;

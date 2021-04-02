@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pfaMobile/constants.dart';
 import 'package:pfaMobile/screens/Authentication/Signin.dart';
 import 'package:pfaMobile/screens/HomeScreen/home.dart';
+import 'package:pfaMobile/screens/Panier.dart/Panier.dart';
 import 'package:pfaMobile/services/PromotionService.dart';
+import 'package:pfaMobile/session.dart';
 
 Drawer buildDrawer(BuildContext context) {
   return new Drawer(
@@ -10,8 +12,11 @@ Drawer buildDrawer(BuildContext context) {
       children: <Widget>[
 //            header
         new UserAccountsDrawerHeader(
-          accountName: Text("Nom d'utilisateur"),
-          accountEmail: Text("email"),
+          accountName: Text((connectedUser == null)
+              ? "Nom d'utilisateur"
+              : connectedUser.username),
+          accountEmail:
+              Text((connectedUser == null) ? "Email" : connectedUser.email),
           currentAccountPicture: GestureDetector(
             child: new ClipOval(
               child: Image.asset(
@@ -47,12 +52,9 @@ Drawer buildDrawer(BuildContext context) {
 
         InkWell(
           onTap: () {
-
-            PromotionService.fetchById(3).then((value) 
-            {
+            PromotionService.fetchById(3).then((value) {
               print(value);
             });
-
           },
           child: ListTile(
             title: Text(
@@ -70,7 +72,14 @@ Drawer buildDrawer(BuildContext context) {
         ),
 
         InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Panier(),
+                      ),
+                    );
+          },
           child: ListTile(
             title: Text(
               'Mon panier',
@@ -119,7 +128,7 @@ Drawer buildDrawer(BuildContext context) {
             ),
           ),
         ),
-         InkWell(
+        InkWell(
           onTap: () {},
           child: ListTile(
             title: Text(
@@ -141,23 +150,30 @@ Drawer buildDrawer(BuildContext context) {
           child: InkWell(
             child: ListTile(
               title: Text(
-                'Se connecter',
+                (connectedUser == null) ? 'Se connecter' : 'Déconnexion',
                 style: TextStyle(
                   fontSize: 20.0,
                   fontFamily: 'Inconsolata',
                 ),
               ),
               leading: Icon(
-                Icons.login,
+                (connectedUser == null) ? Icons.login : Icons.logout,
                 color: Colors.grey,
               ),
-              onTap: () => {
+              onTap: (){
+                if (connectedUser == null)
+                  {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>Signin(),
-                        ),
-                      )              
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Signin(),
+                      ),
+                    );
+                  }else{
+                    logOut();
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                HomePage.routeName, (Route<dynamic> route) => false);
+                  }
               },
             ),
           ),

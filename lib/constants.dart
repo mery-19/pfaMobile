@@ -17,8 +17,6 @@ Color main_bg_color_2 = new Color.fromRGBO(45, 62, 80, 1);
 final headline6_color = Colors.white;
 final headline6_size = 20.0;
 
-Map<String, dynamic> connected_user;
-
 Map<String, dynamic> cart;
 
 String image64 = null;

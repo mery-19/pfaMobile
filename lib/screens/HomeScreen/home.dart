@@ -24,8 +24,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String name = "user name";
-  String email = "Email";
   bool isConnectVisible = true;
   int i = 0;
 

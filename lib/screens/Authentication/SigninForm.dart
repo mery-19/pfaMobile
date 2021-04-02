@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:pfaMobile/components/default_button.dart';
 import 'package:pfaMobile/components/no_account.dart';
@@ -6,8 +5,6 @@ import 'package:pfaMobile/constants.dart';
 import 'package:pfaMobile/screens/HomeScreen/home.dart';
 import 'package:pfaMobile/services/AuthService.dart';
 import 'package:pfaMobile/theme.dart';
-import 'package:http/http.dart' as http;
-import 'package:pfaMobile/URLs.dart';
 
 
 class SignForm extends StatefulWidget {
@@ -23,22 +20,15 @@ class _SignFormState extends State<SignForm> {
   @override
   Widget build(BuildContext context) {
 
-    void signIn() async{
-      // http.Response res = await http.post(authApi, body: {
-      //     "email": _email.text,
-      //     "password": _password.text,
-      //   }, headers: {
-      //     "Accept": "application/json"
-      //   });
-        AuthService.login(_email.text, _password.text).then((value) => print("here"));
-
-        // if(res.body.isEmpty){
-        //   toastMessage("Email ou mot de passe invalide.", main_bg_color);
-        // } else{
-        // connected_user = jsonDecode(res.body);
-        // Navigator.pop(context);
-        // Navigator.pushNamed(context, HomePage.routeName);
-        // }
+    void signIn(){
+        AuthService.login(_email.text, _password.text).then((value){
+          if(value == null){
+            toastMessage("Erreur de connexion.", Colors.red);
+          }else{
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                HomePage.routeName, (Route<dynamic> route) => false);
+          }
+        });
     }
 
     return Form(
