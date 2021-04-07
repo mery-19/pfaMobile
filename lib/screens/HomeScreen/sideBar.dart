@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pfaMobile/constants.dart';
 import 'package:pfaMobile/screens/Authentication/Signin.dart';
+import 'package:pfaMobile/screens/Commandes/CommandesScreen.dart';
 import 'package:pfaMobile/screens/HomeScreen/home.dart';
-import 'package:pfaMobile/screens/Panier.dart/Panier.dart';
-import 'package:pfaMobile/services/PromotionService.dart';
+import 'package:pfaMobile/screens/Notifications/NotificationsScreen.dart';
+import 'package:pfaMobile/screens/Panier/Panier.dart';
 import 'package:pfaMobile/session.dart';
 
 Drawer buildDrawer(BuildContext context) {
@@ -52,9 +53,12 @@ Drawer buildDrawer(BuildContext context) {
 
         InkWell(
           onTap: () {
-            PromotionService.fetchById(3).then((value) {
-              print(value);
-            });
+            Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NotificationScreen(),
+                      ),
+                    );
           },
           child: ListTile(
             title: Text(
@@ -96,7 +100,14 @@ Drawer buildDrawer(BuildContext context) {
         ),
 
         InkWell(
-          onTap: () {},
+          onTap: () {
+                Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CommandesScreen(),
+                      ),
+                    );
+          },
           child: ListTile(
             title: Text(
               'Mes commandes',

@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:pfaMobile/URLs.dart';
 import 'package:pfaMobile/models/LignePanier.dart';
-import 'package:pfaMobile/screens/Panier.dart/Panier.dart';
+import 'package:pfaMobile/screens/Panier/Panier.dart';
 import 'package:pfaMobile/services/PanierService.dart';
 import 'package:pfaMobile/theme.dart';
 
 class PanierItem extends StatefulWidget {
+  final BuildContext context1;
   final LignePanier lignePanier;
 
-  PanierItem({this.lignePanier});
+  PanierItem({this.lignePanier, this.context1});
   @override
-  _PanierItemState createState() => _PanierItemState(lignePanier);
+  _PanierItemState createState() => _PanierItemState(lignePanier,context1);
 }
 
 class _PanierItemState extends State<PanierItem> {
   LignePanier lignePanier;
+  BuildContext context1;
   double prixTotal = 0.0;
   bool isAvailable = false;
   List<int> qtyList = new List<int>();
   int qty;
   var totalPrixTxt = ValueNotifier<String>("0.0");
 
-  _PanierItemState(this.lignePanier);
+  _PanierItemState(this.lignePanier,this.context1);
 
   @override
   void initState() {
@@ -131,8 +133,7 @@ class _PanierItemState extends State<PanierItem> {
                                     color: Colors.red[200],
                                   ),
                                   onPressed: () {
-                                    print("no");
-                                    Navigator.pop(context);
+                                   
                                   }),
                               IconButton(
                                   icon: Icon(
@@ -144,8 +145,11 @@ class _PanierItemState extends State<PanierItem> {
                                     PanierService.deleteProduct(lignePanier.id)
                                         .then((value) {
                                       if (value) {
-                                      Navigator.pop(context);
-                                            Navigator.pushNamed(context, Panier.routeName);
+                                        setState(() {
+                                          
+                                        });
+                                      Navigator.pop(context1);
+                                      Navigator.pushNamed(context1, Panier.routeName);
                                       }
                                     });
                                   }),

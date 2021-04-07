@@ -3,7 +3,7 @@ import 'package:pfaMobile/models/Product.dart';
 import 'package:pfaMobile/screens/HomeScreen/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:pfaMobile/screens/Panier.dart/Panier.dart';
+import 'package:pfaMobile/screens/Panier/Panier.dart';
 import 'package:pfaMobile/screens/Product/productDetail.dart';
 
 
