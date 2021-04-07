@@ -1,5 +1,6 @@
 
 import 'package:pfaMobile/models/Product.dart';
+import 'package:pfaMobile/screens/Commandes/CommandesScreen.dart';
 import 'package:pfaMobile/screens/HomeScreen/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -31,7 +32,9 @@ RouteFactory routes() {
        case Panier.routeName:
         screen = Panier();
         break;
-        
+        case CommandesScreen.routeName:
+        screen = CommandesScreen();
+        break;
       default:
         return null;
     }

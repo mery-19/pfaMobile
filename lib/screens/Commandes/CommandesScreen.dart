@@ -2,28 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:pfaMobile/constants.dart';
 import 'package:pfaMobile/models/Commande.dart';
 import 'package:pfaMobile/screens/Commandes/CommandeItem.dart';
+import 'package:pfaMobile/screens/HomeScreen/home.dart';
 import 'package:pfaMobile/services/CommandeService.dart';
 
 class CommandesScreen extends StatefulWidget {
-  static const String routeName = "/books_store";
+  static const String routeName = "/commandes";
+  final int id;
 
+  CommandesScreen({this.id});
   @override
-  _CommandesScreenState createState() => _CommandesScreenState();
+  _CommandesScreenState createState() => _CommandesScreenState(id);
 }
 
 class _CommandesScreenState extends State<CommandesScreen> {
   List<Commande> commandes = new List<Commande>();
-
+  final int id;
+  _CommandesScreenState(this.id);
   @override
   void initState() {
     super.initState();
-    CommandeService.fetchAllCommandes().then((value){
+    CommandeService.fetchAllCommandes(id).then((value) {
       setState(() {
-              commandes = value;
-
+        commandes = value;
       });
     });
-   
   }
 
   @override
@@ -35,7 +37,10 @@ class _CommandesScreenState extends State<CommandesScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+                (route) => false);
           },
         ),
         title: Text(
@@ -58,40 +63,58 @@ class _CommandesScreenState extends State<CommandesScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
                     color: main_bg_color,
-                    onPressed: () {},
-                    child: Text("Toutes mes commandes",style: TextStyle(
-            fontSize: 15,
-            color: Colors.white,
-          )),
-                  )
-                  ),
-                                    SizedBox(width: 10),
-
-                    Flexible(
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CommandesScreen(id: 0)),
+                          (route) => false);
+                    },
+                    child: Text("Toutes mes commandes",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                        )),
+                  )),
+              SizedBox(width: 10),
+              Flexible(
                   flex: 1,
                   child: FlatButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
                     color: Colors.blue,
-                    onPressed: () {},
-                    child: Text("En attente",style: TextStyle(
-            fontSize: 15,
-            color: Colors.white,
-          )),
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CommandesScreen(id: 1)),
+                          (route) => false);
+                    },
+                    child: Text("En attente",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                        )),
                   )),
-                                    SizedBox(width: 10),
-
-                    Flexible(
+              SizedBox(width: 10),
+              Flexible(
                   flex: 1,
                   child: FlatButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
                     color: Colors.green,
-                    onPressed: () {},
-                    child: Text("Livré",style: TextStyle(
-            fontSize: 15,
-            color: Colors.white,
-          )),
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CommandesScreen(id: 2)),
+                          (route) => false);
+                    },
+                    child: Text("Livré",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                        )),
                   ))
             ],
           ),
@@ -103,7 +126,7 @@ class _CommandesScreenState extends State<CommandesScreen> {
   List<Widget> commandesWidgets(BuildContext context) {
     return commandes
         .map((e) => CommandeItem(
-              context: context,
+              context1: context,
               id: e.id,
               id_status: e.id_status,
               prix_total: e.prix_total,

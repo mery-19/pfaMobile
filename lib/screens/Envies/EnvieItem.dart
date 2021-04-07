@@ -4,7 +4,7 @@ import 'package:pfaMobile/constants.dart';
 import 'package:pfaMobile/models/LignePanier.dart';
 import 'package:pfaMobile/theme.dart';
 
-class ProductsInCommande extends StatelessWidget {
+class EnvieItem extends StatelessWidget {
   LignePanier lignePanier;
   BuildContext context1;
   bool isAvailable = false;
@@ -12,7 +12,7 @@ class ProductsInCommande extends StatelessWidget {
   int qty;
   var totalPrixTxt = ValueNotifier<String>("0.0");
 
-  ProductsInCommande({this.lignePanier, this.context1});
+  EnvieItem({this.lignePanier, this.context1});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,26 +53,21 @@ class ProductsInCommande extends StatelessWidget {
                         SizedBox(
                           height: 10.0,
                         ),
-                        Text("Quantité: " + lignePanier.quantite.toString(),
-                            style: TextStyle(
-                              fontFamily: 'Inconsolata',
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.bold,
-                              color: main_bg_color_2,
-                            )),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Text(
-                            (lignePanier.prix * lignePanier.quantite)
-                                    .toStringAsFixed(2) +
-                                " DHs",
+                        Text(lignePanier.prix.toStringAsFixed(2) + " DHs",
                             style: TextStyle(
                               fontFamily: 'Inconsolata',
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,
                               color: main_bg_color,
-                            ))
+                            )),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        IconButton(
+                            icon: Icon(Icons.delete),
+                            iconSize: 30.0,
+                            color: Colors.red,
+                            onPressed: null)
                       ],
                     )),
               ],
@@ -87,4 +82,3 @@ TextStyle buildTextStyle() {
     fontSize: 20,
   );
 }
-

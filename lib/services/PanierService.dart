@@ -25,8 +25,13 @@ class PanierService {
   static Future<LignePanier> updateQuantite(int id_produit, int qty) async {
     try {
       final response = await http.get(
-        panierApi+"?id_user="+connectedUser.id+"&id_produit="+id_produit.toString()+"&quantite="+qty.toString(),
-        
+        panierApi +
+            "?id_user=" +
+            connectedUser.id +
+            "&id_produit=" +
+            id_produit.toString() +
+            "&quantite=" +
+            qty.toString(),
         headers: {"Accept": "application/json"},
       );
       dynamic value = json.decode(response.body);
@@ -43,13 +48,16 @@ class PanierService {
   static Future<bool> deleteProduct(int id_produit) async {
     try {
       final response = await http.get(
-        panierApi+"?id_user="+connectedUser.id+"&id_produit="+id_produit.toString(),
+        panierApi +
+            "?id_user=" +
+            connectedUser.id +
+            "&id_produit=" +
+            id_produit.toString(),
         headers: {"Accept": "application/json"},
       );
       dynamic value = response.body;
-      print("val: "+value);
+      print("val: " + value);
       return true;
-
     } catch (e) {
       print("*************** ERROR UPDATEQTY START ****************");
       print(e.toString());
@@ -61,14 +69,18 @@ class PanierService {
   static Future<bool> addProductToPanier(int id_produit, int qty) async {
     try {
       final response = await http.get(
-        panierApi+"?name="+connectedUser.username+"&id_produit="+id_produit.toString()+"&quantite="+qty.toString(),
-        
+        panierApi +
+            "?name=" +
+            connectedUser.username +
+            "&id_produit=" +
+            id_produit.toString() +
+            "&quantite=" +
+            qty.toString(),
         headers: {"Accept": "application/json"},
       );
       dynamic value = response.body;
-      print("val: "+value);
+      print("val: " + value);
       return true;
-
     } catch (e) {
       print("*************** ERROR PRODUCT ADD START ****************");
       print(e.toString());

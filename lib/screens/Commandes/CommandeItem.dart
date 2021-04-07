@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:pfaMobile/constants.dart';
 import 'package:pfaMobile/models/LignePanier.dart';
 import 'package:pfaMobile/screens/Commandes/ProductsInCommande.dart';
-import 'package:pfaMobile/screens/Panier/PanierItem.dart';
 import 'package:pfaMobile/services/CommandeService.dart';
 
 class CommandeItem extends StatefulWidget {
-  BuildContext context;
+  BuildContext context1;
   int id;
   double prix_total;
   String date_ajout;
@@ -14,7 +13,7 @@ class CommandeItem extends StatefulWidget {
   String date_update;
 
   CommandeItem({
-    this.context,
+    this.context1,
     this.id,
     this.prix_total,
     this.date_ajout,
@@ -23,7 +22,7 @@ class CommandeItem extends StatefulWidget {
   });
   @override
   _CommandeItemState createState() => _CommandeItemState(
-        this.context,
+        this.context1,
         this.id,
         this.prix_total,
         this.date_ajout,
@@ -33,7 +32,7 @@ class CommandeItem extends StatefulWidget {
 }
 
 class _CommandeItemState extends State<CommandeItem> {
-  final BuildContext context;
+  final BuildContext context1;
   final int id;
   final double prix_total;
   final String date_ajout;
@@ -43,7 +42,7 @@ class _CommandeItemState extends State<CommandeItem> {
   List<LignePanier> lignes = new List<LignePanier>();
 
   _CommandeItemState(
-    this.context,
+    this.context1,
     this.id,
     this.prix_total,
     this.date_ajout,
@@ -104,7 +103,7 @@ class _CommandeItemState extends State<CommandeItem> {
                         borderRadius: BorderRadius.circular(5)),
                     color: main_bg_color_2,
                     onPressed: () {
-                      buildShowDialog(context, id);
+                      buildShowDialog(context1, id);
                     },
                     child: Text("Détails",
                         style: TextStyle(

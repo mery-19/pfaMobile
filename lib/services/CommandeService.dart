@@ -22,8 +22,8 @@ class CommandeService {
     
     return commandes;
   }
-static Future<List<Commande>> fetchAllCommandes() async {
-    final response = await http.get(commandesApi+"?id=0&username="+connectedUser.username);
+static Future<List<Commande>> fetchAllCommandes(int id) async {
+    final response = await http.get(commandesApi+"?id="+id.toString()+"&username="+connectedUser.username);
     List<dynamic> values = json.decode(response.body);
     print(values);
     List<Commande> commandes = new List<Commande>();

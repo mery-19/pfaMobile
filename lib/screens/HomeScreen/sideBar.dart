@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pfaMobile/constants.dart';
 import 'package:pfaMobile/screens/Authentication/Signin.dart';
 import 'package:pfaMobile/screens/Commandes/CommandesScreen.dart';
+import 'package:pfaMobile/screens/Envies/EnviesScreen.dart';
 import 'package:pfaMobile/screens/HomeScreen/home.dart';
 import 'package:pfaMobile/screens/Notifications/NotificationsScreen.dart';
 import 'package:pfaMobile/screens/Panier/Panier.dart';
@@ -104,7 +105,7 @@ Drawer buildDrawer(BuildContext context) {
                 Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CommandesScreen(),
+                        builder: (context) => CommandesScreen(id:0),
                       ),
                     );
           },
@@ -124,7 +125,14 @@ Drawer buildDrawer(BuildContext context) {
         ),
 
         InkWell(
-          onTap: () {},
+          onTap: () {
+             Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EnviesScreen(),
+                      ),
+                    );
+          },
           child: ListTile(
             title: Text(
               'Envies',
