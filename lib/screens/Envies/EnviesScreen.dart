@@ -2,6 +2,7 @@ import 'package:pfaMobile/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:pfaMobile/models/LignePanier.dart';
 import 'package:pfaMobile/screens/Envies/EnvieItem.dart';
+import 'package:pfaMobile/screens/HomeScreen/home.dart';
 import 'package:pfaMobile/services/EnviesService.dart';
 
 class EnviesScreen extends StatefulWidget {
@@ -32,6 +33,15 @@ class _EnviesScreenState extends State<EnviesScreen> {
         title: Text("Liste D'envies"),
         centerTitle: true,
         backgroundColor: main_bg_color,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+                (route) => false);
+          },
+        ),
       ),
       body: SingleChildScrollView(
           child: Container(

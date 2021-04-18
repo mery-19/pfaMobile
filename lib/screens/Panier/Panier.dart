@@ -1,6 +1,7 @@
 import 'package:pfaMobile/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:pfaMobile/models/LignePanier.dart';
+import 'package:pfaMobile/screens/HomeScreen/home.dart';
 import 'package:pfaMobile/screens/Panier/PanierItem.dart';
 import 'package:pfaMobile/services/PanierService.dart';
 
@@ -27,10 +28,8 @@ class _PanierState extends State<Panier> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    PanierService.fetchAll().then((value) {
-      setState(() {
-        Panier.lignePaniers = value;
-      });
+    setState(() {
+      
     });
   }
 
@@ -38,9 +37,18 @@ class _PanierState extends State<Panier> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Mo Panier"),
+        title: Text("Mon Panier"),
         centerTitle: true,
         backgroundColor: main_bg_color,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+                (route) => false);
+          },
+        ),
       ),
       body: SingleChildScrollView(
           child: Container(
@@ -62,7 +70,7 @@ class _PanierState extends State<Panier> {
     return Panier.lignePaniers
         .map((e) => new PanierItem(
               lignePanier: e,
-              context1: context,
+              context: context,
             ))
         .toList();
   }

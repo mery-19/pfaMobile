@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pfaMobile/URLs.dart';
+import 'package:pfaMobile/components/footer.dart';
 import 'package:pfaMobile/constants.dart';
 import 'package:pfaMobile/models/Product.dart';
 import 'package:pfaMobile/models/Promotion.dart';
 import 'package:pfaMobile/screens/HomeScreen/home.dart';
 import 'package:pfaMobile/screens/Product/BestSell.dart';
 import 'package:pfaMobile/screens/Product/arguments.dart';
+import 'package:pfaMobile/services/EnviesService.dart';
 import 'package:pfaMobile/services/PanierService.dart';
 import 'package:pfaMobile/services/ProductService.dart';
 import 'package:pfaMobile/session.dart';
@@ -53,13 +55,12 @@ class _ProductDetailState extends State<ProductDetail> {
       }
     });
     if (connectedUser != null) {
-      ProductService.getProductQty(product.id).then((value){
-        if(value != 0){
-  setState(() {
-          qty = value;
-        });
+      ProductService.getProductQty(product.id).then((value) {
+        if (value != 0) {
+          setState(() {
+            qty = value;
+          });
         }
-      
       });
     }
 
@@ -151,16 +152,8 @@ class _ProductDetailState extends State<ProductDetail> {
           ),
           new BestSell(),
           SizedBox(height: 40.0),
-          Container(
-              color: main_bg_color_2,
-              height: 100.0,
-              child: Center(
-                  child: Text("© Copyright 2021 MFStore ENSA Fes",
-                      style: TextStyle(
-                          fontFamily: 'Inconsolata',
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white))))
+          Footer()
+          
         ],
       ),
     );
@@ -218,8 +211,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             const Radius.circular(30.0),
                           ),
                         ),
-                        hintText: "Qunatité"
-                        ),
+                        hintText: "Qunatité"),
 
                     // focusColor: Colors.white,
                     value: qty,
@@ -290,7 +282,6 @@ class _ProductDetailState extends State<ProductDetail> {
             // Navigator.of(context).pushNamedAndRemoveUntil(
             //     HomePage.routeName, (Route<dynamic> route) => false);
             Navigator.pop(context);
-
           } else {
             Navigator.pop(context);
           }
@@ -298,8 +289,18 @@ class _ProductDetailState extends State<ProductDetail> {
       ),
       actions: <Widget>[
         IconButton(
-            icon: Icon(Icons.favorite_border, color: Colors.white),
-            onPressed: () {}),
+            icon:Icon(Icons.favorite_border, color: Colors.white),
+            onPressed: () {
+              if (connectedUser == null) {
+                toastMessage("Connecter vous!", Colors.red);
+              } else {
+                EnviesService.add(product.id).then((value) {
+                  print("enter");
+                  toastMessage(
+                      "Le produits a été ajouter avec succé.", Colors.green);
+                });
+              }
+            }),
       ],
     );
   }

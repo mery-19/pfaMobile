@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pfaMobile/URLs.dart';
 import 'package:pfaMobile/constants.dart';
 import 'package:pfaMobile/models/LignePanier.dart';
+import 'package:pfaMobile/screens/Envies/EnviesScreen.dart';
+import 'package:pfaMobile/services/EnviesService.dart';
 import 'package:pfaMobile/theme.dart';
 
 class EnvieItem extends StatelessWidget {
@@ -67,7 +69,16 @@ class EnvieItem extends StatelessWidget {
                             icon: Icon(Icons.delete),
                             iconSize: 30.0,
                             color: Colors.red,
-                            onPressed: null)
+                            onPressed: () {
+                              EnviesService.delete(lignePanier.id)
+                                  .then((value) {
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => EnviesScreen()),
+                                    (route) => false);
+                              });
+                            })
                       ],
                     )),
               ],

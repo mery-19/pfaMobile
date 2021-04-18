@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:pfaMobile/components/footer.dart';
 import 'package:pfaMobile/constants.dart';
 import 'package:pfaMobile/screens/Authentication/SigninForm.dart';
 import 'package:flutter/material.dart';
@@ -20,31 +21,38 @@ class _SigninState extends State<Signin> {
         backgroundColor: main_bg_color,
       ),
       body: SingleChildScrollView(
-          child: Container(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
           child: Column(
             children: [
-              Text(
-                "Bienvenue",
-                style: TextStyle(
-                  color: main_bg_color,
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
+              Container(
+        child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+              child: Column(
+                children: [
+                  Text(
+                    "Bienvenue",
+                    style: TextStyle(
+                      color: main_bg_color,
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 20.0,),
+                  Text(
+                    "Connectez vous avec votre email et mot de passe.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  SignForm(),
+                 
+                ],
               ),
-              SizedBox(height: 20.0,),
-              Text(
-                "Connectez vous avec votre email et mot de passe.",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20),
-              ),
-              SignForm(),
-            ],
-          ),
         ),
-      )),
+      ),
+       Footer()
+            ],
+          )),
+
     );
   }
 }

@@ -46,8 +46,6 @@ class _SignFormState extends State<SignForm> {
                   signIn();
                 }
               }),
-          SizedBox(height: height_box),
-          NoAccount()
         ],
       ),
     );

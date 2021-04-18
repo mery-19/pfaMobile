@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pfaMobile/constants.dart';
 import 'package:pfaMobile/screens/Authentication/Signin.dart';
 import 'package:pfaMobile/screens/Commandes/CommandesScreen.dart';
+import 'package:pfaMobile/screens/Compte/compteScreen.dart';
 import 'package:pfaMobile/screens/Envies/EnviesScreen.dart';
 import 'package:pfaMobile/screens/HomeScreen/home.dart';
 import 'package:pfaMobile/screens/Notifications/NotificationsScreen.dart';
@@ -14,18 +15,14 @@ Drawer buildDrawer(BuildContext context) {
       children: <Widget>[
 //            header
         new UserAccountsDrawerHeader(
-          accountName: Text((connectedUser == null)
-              ? "Nom d'utilisateur"
-              : connectedUser.username),
-          accountEmail:
-              Text((connectedUser == null) ? "Email" : connectedUser.email),
-          currentAccountPicture: GestureDetector(
-            child: new ClipOval(
-              child: Image.asset(
-                "assets/images/avatar.jpg",
-                fit: BoxFit.fitHeight,
-              ),
-            ),
+          accountName: Text(
+              (connectedUser == null)
+                  ? "Nom d'utilisateur"
+                  : connectedUser.username,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
+          accountEmail: Text(
+            (connectedUser == null) ? "Email" : connectedUser.email,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
           ),
           decoration: new BoxDecoration(color: main_bg_color),
         ),
@@ -55,11 +52,11 @@ Drawer buildDrawer(BuildContext context) {
         InkWell(
           onTap: () {
             Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NotificationScreen(),
-                      ),
-                    );
+              context,
+              MaterialPageRoute(
+                builder: (context) => NotificationScreen(),
+              ),
+            );
           },
           child: ListTile(
             title: Text(
@@ -79,11 +76,11 @@ Drawer buildDrawer(BuildContext context) {
         InkWell(
           onTap: () {
             Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Panier(),
-                      ),
-                    );
+              context,
+              MaterialPageRoute(
+                builder: (context) => Panier(),
+              ),
+            );
           },
           child: ListTile(
             title: Text(
@@ -102,12 +99,12 @@ Drawer buildDrawer(BuildContext context) {
 
         InkWell(
           onTap: () {
-                Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CommandesScreen(id:0),
-                      ),
-                    );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CommandesScreen(id: 0),
+              ),
+            );
           },
           child: ListTile(
             title: Text(
@@ -126,12 +123,12 @@ Drawer buildDrawer(BuildContext context) {
 
         InkWell(
           onTap: () {
-             Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => EnviesScreen(),
-                      ),
-                    );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EnviesScreen(),
+              ),
+            );
           },
           child: ListTile(
             title: Text(
@@ -148,7 +145,14 @@ Drawer buildDrawer(BuildContext context) {
           ),
         ),
         InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CompteScreen(),
+              ),
+            );
+          },
           child: ListTile(
             title: Text(
               'Mon compte',
@@ -179,20 +183,19 @@ Drawer buildDrawer(BuildContext context) {
                 (connectedUser == null) ? Icons.login : Icons.logout,
                 color: Colors.grey,
               ),
-              onTap: (){
-                if (connectedUser == null)
-                  {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Signin(),
-                      ),
-                    );
-                  }else{
-                    logOut();
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                HomePage.routeName, (Route<dynamic> route) => false);
-                  }
+              onTap: () {
+                if (connectedUser == null) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Signin(),
+                    ),
+                  );
+                } else {
+                  logOut();
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      HomePage.routeName, (Route<dynamic> route) => false);
+                }
               },
             ),
           ),

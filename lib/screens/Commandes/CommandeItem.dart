@@ -120,17 +120,19 @@ class _CommandeItemState extends State<CommandeItem> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                     Text(
-                      "Ajouté le: "+date_ajout.split("T")[0],
+                    Text(
+                      "Ajouté le: " + date_ajout.split("T")[0],
                       style: buildTextStyle(),
                     ),
-                   
-                    SizedBox(height: 10,),
-                     (id_status == 2)?
-                    Text(
-                      "Confirmer le: "+date_update.split("T")[0],
-                      style: buildTextStyle(),
-                    ):Text(""),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    (id_status == 2)
+                        ? Text(
+                            "Confirmer le: " + date_update.split("T")[0],
+                            style: buildTextStyle(),
+                          )
+                        : Text(""),
                   ],
                 )),
           ],
@@ -152,20 +154,20 @@ class _CommandeItemState extends State<CommandeItem> {
         return AlertDialog(
           title: Text("Les produits commandées:"),
           content: SingleChildScrollView(
-                      child: Column(
+            child: Column(
               children: []..addAll(produitsCommandee(context)),
             ),
           ),
           actions: [
             FlatButton(
-              shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                    color: main_bg_color_2,
-                child: Text("Fermé",style: TextStyle(
-            fontSize: 20,
-            color: Colors.white,
-          )),
-  
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5)),
+                color: main_bg_color_2,
+                child: Text("Fermé",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                    )),
                 onPressed: () {
                   print("no");
                   Navigator.pop(context);

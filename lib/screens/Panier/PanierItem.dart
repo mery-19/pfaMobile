@@ -2,28 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:pfaMobile/URLs.dart';
 import 'package:pfaMobile/models/LignePanier.dart';
 import 'package:pfaMobile/screens/Panier/Panier.dart';
+import 'package:pfaMobile/services/EnviesService.dart';
 import 'package:pfaMobile/services/PanierService.dart';
 import 'package:pfaMobile/theme.dart';
 
 class PanierItem extends StatefulWidget {
-  final BuildContext context1;
+  final BuildContext context;
   final LignePanier lignePanier;
 
-  PanierItem({this.lignePanier, this.context1});
+  PanierItem({this.lignePanier, this.context});
   @override
-  _PanierItemState createState() => _PanierItemState(lignePanier,context1);
+  _PanierItemState createState() => _PanierItemState(lignePanier, context);
 }
 
 class _PanierItemState extends State<PanierItem> {
   LignePanier lignePanier;
-  BuildContext context1;
+  BuildContext context;
   double prixTotal = 0.0;
   bool isAvailable = false;
   List<int> qtyList = new List<int>();
   int qty;
   var totalPrixTxt = ValueNotifier<String>("0.0");
 
-  _PanierItemState(this.lignePanier,this.context1);
+  _PanierItemState(this.lignePanier, this.context);
 
   @override
   void initState() {
@@ -105,16 +106,12 @@ class _PanierItemState extends State<PanierItem> {
                             onChanged: (value) {
                               setState(() {
                                 var total = lignePanier.prix * value;
-                                totalPrixTxt.value =
-                                    total.toStringAsFixed(2);
+                                totalPrixTxt.value = total.toStringAsFixed(2);
                               });
                               print("enter");
                               PanierService.updateQuantite(
                                       lignePanier.id, value)
                                   .then((ligne) {
-                                print("------*********---------********");
-                                print(ligne);
-                                print("------*********---------********");
                                 setState(() {
                                   lignePanier.prix =
                                       lignePanier.prix * ligne.quantite;
@@ -133,7 +130,10 @@ class _PanierItemState extends State<PanierItem> {
                                     color: Colors.red[200],
                                   ),
                                   onPressed: () {
-                                   
+                                     EnviesService.add(lignePanier.id).then((value) {
+                                      toastMessage(
+                                          "Le produit a été ajouter avec succé.", Colors.green);
+                                    });
                                   }),
                               IconButton(
                                   icon: Icon(
@@ -145,11 +145,17 @@ class _PanierItemState extends State<PanierItem> {
                                     PanierService.deleteProduct(lignePanier.id)
                                         .then((value) {
                                       if (value) {
+
                                         setState(() {
-                                          
+                                          Panier.lignePaniers.remove(lignePanier);
                                         });
-                                      Navigator.pop(context1);
-                                      Navigator.pushNamed(context1, Panier.routeName);
+
+
+                                        Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => Panier()),
+                                            (route) => false);
                                       }
                                     });
                                   }),
@@ -168,34 +174,5 @@ class _PanierItemState extends State<PanierItem> {
 TextStyle buildTextStyle() {
   return TextStyle(
     fontSize: 20,
-  );
-}
-
-Future buildShowDialog(BuildContext context, String id) {
-  return showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text("Delete Book store!"),
-        content: Text("Are you sure you want to delete this book store?"),
-        actions: [
-          IconButton(
-              icon: Icon(
-                Icons.check,
-                color: Colors.green,
-              ),
-              onPressed: () {}),
-          IconButton(
-              icon: Icon(
-                Icons.cancel,
-                color: Colors.red,
-              ),
-              onPressed: () {
-                print("no");
-                Navigator.pop(context);
-              })
-        ],
-      );
-    },
   );
 }

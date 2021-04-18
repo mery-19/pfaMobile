@@ -22,5 +22,31 @@ class EnviesService {
     return lignePaniers;
   }
 
-  
+  static Future<bool> delete(int id) async {
+    final response = await http.delete(enviesApi +
+        "?id_user=" +
+        connectedUser.id +
+        "&id_produit=" +
+        id.toString());
+    dynamic value = json.decode(response.body);
+    print("'''''''''''''''''''''''''''''''");
+    print(response.body);
+    print(value);
+    print("'''''''''''''''''''''''''''''''");
+    return true;
+  }
+
+    static Future<bool> add(int id) async {
+    final response = await http.get(enviesApi +
+        "?id_user=" +
+        connectedUser.id +
+        "&id_produit=" +
+        id.toString());
+    dynamic value = json.decode(response.body);
+    print("'''''''''''''''''''''''''''''''");
+    print(response.body);
+    print(value);
+    print("'''''''''''''''''''''''''''''''");
+    return true;
+  }
 }
